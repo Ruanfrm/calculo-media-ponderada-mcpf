@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
     <link rel="stylesheet" href="style.css">
 
     <title>Media de NOTAS</title>
@@ -14,16 +17,77 @@
     
     <div class="container">
         <h1 class="title-container">Cálculo de média ponderada</h1>
-        <div class="container-inputs">
-            <p>Nota trabalho: <input type="text" id="input1" required></p>
-            <p>Nota prova: <input type="text" id="input2" required></p>
-            <p>Nota qualitativa: <input type="text" id="input3" required></p>
+
+        <div class="form-control">
+            <input type="value" required="" id="input1">
+            <label>
+                <span style="transition-delay:0ms">Nota </span> <span style="transition-delay:50ms">do</span> <span style="transition-delay:100ms">trabalho</span>
+            </label>
         </div>
-   
-    <button id="calcular">Calcular média</button>
+        
+        <div class="form-control">
+            <input type="value" required="" id="input2">
+            <label>
+                <span style="transition-delay:0ms">Nota </span> <span style="transition-delay:50ms">da</span> <span style="transition-delay:100ms">prova</span>
+            </label>
+        </div>
+
+        <div class="form-control">
+            <input type="value" required="" id="input3">
+            <label>
+                <span style="transition-delay:0ms">Nota </span> <span style="transition-delay:50ms">da</span> <span style="transition-delay:100ms">qualitativa</span>
+            </label>
+        </div>
+
+        <a href="#" id="calcular" class="btn">Calcular média</a>
+
+    
     <p id="resultado" class="resultado" >Site criado para calcular média de notas dos alunos da MCPF</p>  
     </div>
-    <div id="balao"></div>
+
+    <footer>
+        <h3>Feito por Ruan Freire </h3>
+        <div class="icons">
+            <a href="https://github.com/Ruanfrm" target="_blank"><i class="fa-brands fa-github"></i> </a>
+            <a href="https://instagram.com/ruan.fr" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/in/ruan-freire-213721202/" target="_blank"> <i class="fa-brands fa-linkedin"></i></a>
+        </div>
+
+<!-- Modal de aprovação -->
+<div id="modal-aprovacao" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>Parabéns, você foi aprovado!</p>
+      <img src="./img/aprovado.png" alt="Aprovado">
+    </div>
+  </div>
+  
+  <!-- Modal de reprovação -->
+  <div id="modal-reprovacao" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>Infelizmente, você foi reprovado.</p>
+      <img src="./img/reprovado.png" alt="Reprovado">
+    </div>
+  </div>
+  
+
+
+        <!-- modal-de-aviso -->
+       
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+              <span class="close-aviso">&times;</span>
+             
+              <p>
+                <i class="fa-regular fa-circle-exclamation"></i>
+                Atenção: na hora do cálculo, não é permitido usar vírgulas.</p>
+
+            </div>
+          </div>
+          
+
+    </footer>
 
  <script src="script.js"></script>
 </body>
