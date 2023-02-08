@@ -1,84 +1,57 @@
-const input1 = document.getElementById("input1");
-const input2 = document.getElementById("input2");
-const input3 = document.getElementById("input3");
+const inputs = [
+  document.getElementById("input1"),
+  document.getElementById("input2"),
+  document.getElementById("input3")
+];
 const button = document.getElementById("calcular");
 const result = document.getElementById("resultado");
+const modals = {
+  aprovacao: document.getElementById("modal-aprovacao"),
+  reprovacao: document.getElementById("modal-reprovacao")
+};
+const closeButtons = document.querySelectorAll(".close");
+const modalAviso = document.getElementById("myModal");
+const closeModalAviso = document.getElementsByClassName("close-aviso")[0];
 
-button.addEventListener("click", function () {
-  if (!input1 || !input2 || !input3) {
-    console.error("Um ou mais inputs não foram encontrados na página");
-    return;
-  }
-
-  if (!input1.value || !input2.value || !input3.value) {
+button.addEventListener("click", () => {
+  if (!inputs.every(input => input && input.value)) {
+    console.error("Um ou mais inputs não foram encontrados ou preenchidos na página");
     result.innerHTML = "Por favor, preencha todos os campos antes de clicar em calcular";
-    alert("Por favor, preencha todos os campos antes de clicar em calcular")
+    alert("Por favor, preencha todos os campos antes de clicar em calcular");
     return;
   }
 
-  const nota1 = Number(input1.value) * 3;
-  const nota2 = Number(input2.value) * 6;
-  const nota3 = Number(input3.value) * 1;
+  const notas = inputs.map(input => Number(input.value));
+  const pesos = [3, 6, 1];
+  const media = notas.reduce((ac, n, i) => ac + n * pesos[i], 0) / pesos.reduce((ac, p) => ac + p, 0);
 
-  const media = (nota1 + nota2 + nota3) / (3 + 6 + 1);
+  result.style.color = media >= 6 ? "green" : "red";
+  result.innerHTML = `${media >= 6 ? "Aprovado" : "Reprovado"}, a média ponderada é: ${media.toFixed(2)}`;
 
-  if (media >= 6) {
-    result.style.color = "green";
-    result.innerHTML = "Aprovado, a média ponderada é: " + media.toFixed(2); 
-  
-    // Exibe o modal de aprovação
-    const modalAprovacao = document.getElementById("modal-aprovacao");
-    modalAprovacao.style.display = "block";
-  } else {
-    result.style.color = "red";
-    result.innerHTML = "Reprovado, a média ponderada é: " + media.toFixed(2);
-  
-    // Exibe o modal de reprovação
-    const modalReprovacao = document.getElementById("modal-reprovacao");
-    modalReprovacao.style.display = "block";
-  }
-
-  // Fecha o modal ao clicar no botão "Fechar"
-  const closeButtons = document.querySelectorAll(".close");
-  for (const closeButton of closeButtons) {
-    closeButton.addEventListener("click", function () {
-      const modal = this.parentElement.parentElement;
-      modal.style.display = "none";
-    });
-  }
+  modals[media >= 6 ? "aprovacao" : "reprovacao"].style.display = "block";
 });
 
+closeButtons.forEach(closeButton => {
+  closeButton.addEventListener("click", () => {
+    closeButton.parentElement.parentElement.style.display = "none";
+  });
+});
 
-// modal
-
-// Obtém a referência ao modal
-var modal = document.getElementById("myModal");
-
-// Obtém a referência ao botão de fechar (span)
-var span = document.getElementsByClassName("close-aviso")[0];
-
-// Verifica se o modal já foi lido
-window.onload = function() {
+window.onload = () => {
   if (localStorage.getItem("modalLido") !== "true") {
-    modal.style.display = "block";
+    modalAviso.style.display = "block";
   } else {
-    modal.style.display = "none";
+    modalAviso.style.display = "none";
   }
 };
 
-// Quando o usuário clicar no botão de fechar, oculta o modal
-span.onclick = function() {
-  modal.style.display = "none";
-  
-  // Armazena a informação de que o modal foi fechado
+closeModalAviso.addEventListener("click", () => {
+  modalAviso.style.display = "none";
   localStorage.setItem("modalLido", "true");
-};
+});
 
-// Quando o usuário clicar fora do modal, oculta-o
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
+window.addEventListener("click", event => {
+  if (event.target === modalAviso) {
+    modalAviso.style.display = "none";
   }
-};
-
-
+});
